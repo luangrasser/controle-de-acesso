@@ -1,5 +1,6 @@
 package br.com.gl.controledeacesso.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class Pessoa implements Serializable {
     private Integer id;
     private String nome;
     private String cpf;
-    private LocalDateTime dataCadastro;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
+    private LocalDateTime dataCadastro = LocalDateTime.now();
 
 }
