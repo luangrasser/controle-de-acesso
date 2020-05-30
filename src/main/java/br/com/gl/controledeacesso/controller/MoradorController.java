@@ -36,17 +36,16 @@ public class MoradorController {
     }
 
     @DeleteMapping("/apagar")
-    public ResponseEntity<?> apagar(@RequestParam(value = "morador") Integer id) {
+    public ResponseEntity<?> apagar(@RequestParam(value = "id") Integer id) {
         try {
             Morador morador = repository.findById(id).orElse(null);
-
             if (morador == null) {
                 throw new Exception("Morador desconhecido.");
             }
             return ResponseEntity.ok(repository.findAll());
         } catch (Exception e) {
-            log.error("Falha ao pesquisar moradores.", e);
-            return ResponseEntity.badRequest().body("Falha ao pesquisar moradores.");
+            log.error("Falha ao apagar morador.", e);
+            return ResponseEntity.badRequest().body("Falha ao apagar morador.");
         }
     }
 }
