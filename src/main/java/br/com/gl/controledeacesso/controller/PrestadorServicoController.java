@@ -42,7 +42,8 @@ public class PrestadorServicoController {
             if (prestadorServico == null) {
                 throw new Exception("Prestador de serviço desconhecido.");
             }
-            return ResponseEntity.ok(repository.findAll());
+            repository.delete(prestadorServico);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.error("Falha ao apagar prestador de serviço.", e);
             return ResponseEntity.badRequest().body("Falha ao prestador de serviço.");

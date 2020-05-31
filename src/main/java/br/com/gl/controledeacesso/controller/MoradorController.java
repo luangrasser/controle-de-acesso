@@ -42,7 +42,8 @@ public class MoradorController {
             if (morador == null) {
                 throw new Exception("Morador desconhecido.");
             }
-            return ResponseEntity.ok(repository.findAll());
+            repository.delete(morador);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.error("Falha ao apagar morador.", e);
             return ResponseEntity.badRequest().body("Falha ao apagar morador.");

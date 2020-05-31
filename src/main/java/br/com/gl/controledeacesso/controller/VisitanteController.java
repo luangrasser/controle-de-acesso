@@ -42,7 +42,8 @@ public class VisitanteController {
             if (visitante == null) {
                 throw new Exception("Visitante desconhecido.");
             }
-            return ResponseEntity.ok(repository.findAll());
+            repository.delete(visitante);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.error("Falha ao apagar visitante.", e);
             return ResponseEntity.badRequest().body("Falha ao apagar visitante.");
