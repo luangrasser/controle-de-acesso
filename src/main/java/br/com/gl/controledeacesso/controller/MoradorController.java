@@ -38,10 +38,7 @@ public class MoradorController {
     @DeleteMapping("/apagar")
     public ResponseEntity<?> apagar(@RequestParam(value = "id") Integer id) {
         try {
-            Morador morador = repository.findById(id).orElse(null);
-            if (morador == null) {
-                throw new Exception("Morador desconhecido.");
-            }
+            Morador morador = repository.findById(id).orElseThrow(() -> new Exception("Morador desconhecido."));
             repository.delete(morador);
             return ResponseEntity.ok().build();
         } catch (Exception e) {

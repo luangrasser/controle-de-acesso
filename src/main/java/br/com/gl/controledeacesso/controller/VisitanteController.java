@@ -38,10 +38,7 @@ public class VisitanteController {
     @DeleteMapping("/apagar")
     public ResponseEntity<?> apagar(@RequestParam(value = "id") Integer id) {
         try {
-            Visitante visitante = repository.findById(id).orElse(null);
-            if (visitante == null) {
-                throw new Exception("Visitante desconhecido.");
-            }
+            Visitante visitante = repository.findById(id).orElseThrow(() -> new Exception("Visitante desconhecido."));
             repository.delete(visitante);
             return ResponseEntity.ok().build();
         } catch (Exception e) {

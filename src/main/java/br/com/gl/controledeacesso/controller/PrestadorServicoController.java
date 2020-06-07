@@ -38,10 +38,7 @@ public class PrestadorServicoController {
     @DeleteMapping("/apagar")
     public ResponseEntity<?> apagar(@RequestParam(value = "id") Integer id) {
         try {
-            PrestadorServico prestadorServico = repository.findById(id).orElse(null);
-            if (prestadorServico == null) {
-                throw new Exception("Prestador de serviço desconhecido.");
-            }
+            PrestadorServico prestadorServico = repository.findById(id).orElseThrow(() -> new Exception("Prestador de serviço desconhecido."));
             repository.delete(prestadorServico);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
