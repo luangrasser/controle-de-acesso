@@ -40,7 +40,7 @@ public class AcessoController {
     @GetMapping("/pesquisar")
     public ResponseEntity<?> pesquisar() {
         try {
-            return ResponseEntity.ok(repository.findAll());
+            return ResponseEntity.ok(repository.findAll().stream().sorted((a1, a2) -> Integer.compare(a2.getId(), a1.getId())));
         } catch (Exception e) {
             log.error("Falha ao pesquisar acessos.", e);
             return ResponseEntity.badRequest().body("Falha ao pesquisar acessos.");
