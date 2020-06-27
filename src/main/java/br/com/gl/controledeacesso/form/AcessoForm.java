@@ -2,11 +2,13 @@ package br.com.gl.controledeacesso.form;
 
 import br.com.gl.controledeacesso.dao.*;
 import br.com.gl.controledeacesso.model.Acesso;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,10 +23,13 @@ public class AcessoForm {
     private Integer corretor;
     private Integer entregador;
     private String movimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
+    private LocalDateTime dataMovimento;
 
     public Acesso transform(MoradorRepository moradorDao, VisitanteRepository visitanteDao,
             PrestadorServicoRepository prestadorDao, CorretorRepository corretorDao, EntregadorRepository entregadorDao) throws Exception {
-        Acesso acesso = Acesso.builder().id(id).movimento(movimento).build();
+        Acesso acesso = Acesso.builder().id(id).movimento(movimento)
+                .dataMovimento(dataMovimento != null ? dataMovimento : LocalDateTime.now()).build();
         if (morador != null) {
             acesso.setMorador(moradorDao.findById(morador).orElseThrow(() -> new Exception("Morador desconhecido.")));
         }

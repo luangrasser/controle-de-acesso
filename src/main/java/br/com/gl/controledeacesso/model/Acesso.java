@@ -34,8 +34,7 @@ public class Acesso implements Serializable {
     @ManyToOne
     private Entregador entregador;
     private String movimento;
-    @Builder.Default
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
-    private LocalDateTime dataMovimento = LocalDateTime.now();
+    private LocalDateTime dataMovimento;
 
 }

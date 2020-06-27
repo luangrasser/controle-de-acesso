@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Log4j2
 @RestController
 @RequestMapping("/prestadorservico")
@@ -18,6 +20,9 @@ public class PrestadorServicoController {
     @PostMapping("/salvar")
     public ResponseEntity<?> salvar(@RequestBody PrestadorServico prestadorServico) {
         try {
+            if (prestadorServico.getDataCadastro() == null) {
+                prestadorServico.setDataCadastro(LocalDateTime.now());
+            }
             return ResponseEntity.ok(repository.save(prestadorServico));
         } catch (Exception e) {
             log.error("Falha ao salvar prestador de serviço.", e);

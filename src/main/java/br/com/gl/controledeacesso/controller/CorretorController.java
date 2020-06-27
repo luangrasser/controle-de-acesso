@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Log4j2
 @RestController
 @RequestMapping("/corretor")
@@ -18,6 +20,9 @@ public class CorretorController {
     @PostMapping("/salvar")
     public ResponseEntity<?> salvar(@RequestBody Corretor corretor) {
         try {
+            if (corretor.getDataCadastro() == null) {
+                corretor.setDataCadastro(LocalDateTime.now());
+            }
             return ResponseEntity.ok(repository.save(corretor));
         } catch (Exception e) {
             log.error("Falha ao salvar corretor.", e);

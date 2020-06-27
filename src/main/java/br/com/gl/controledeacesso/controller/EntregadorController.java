@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Log4j2
 @RestController
 @RequestMapping("/entregador")
@@ -18,6 +20,9 @@ public class EntregadorController {
     @PostMapping("/salvar")
     public ResponseEntity<?> salvar(@RequestBody Entregador entregador) {
         try {
+            if (entregador.getDataCadastro() == null) {
+                entregador.setDataCadastro(LocalDateTime.now());
+            }
             return ResponseEntity.ok(repository.save(entregador));
         } catch (Exception e) {
             log.error("Falha ao salvar entregador.", e);
