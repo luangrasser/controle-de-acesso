@@ -1,8 +1,6 @@
 package br.com.gl.controledeacesso.form;
 
-import br.com.gl.controledeacesso.dao.MoradorRepository;
-import br.com.gl.controledeacesso.dao.PrestadorServicoRepository;
-import br.com.gl.controledeacesso.dao.VisitanteRepository;
+import br.com.gl.controledeacesso.dao.*;
 import br.com.gl.controledeacesso.model.Acesso;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +18,12 @@ public class AcessoForm {
     private Integer morador;
     private Integer visitante;
     private Integer prestadorServico;
+    private Integer corretor;
+    private Integer entregador;
     private String movimento;
 
-    public Acesso transform(MoradorRepository moradorDao, VisitanteRepository visitanteDao, PrestadorServicoRepository prestadorDao) throws Exception {
+    public Acesso transform(MoradorRepository moradorDao, VisitanteRepository visitanteDao,
+            PrestadorServicoRepository prestadorDao, CorretorRepository corretorDao, EntregadorRepository entregadorDao) throws Exception {
         Acesso acesso = Acesso.builder().id(id).movimento(movimento).build();
         if (morador != null) {
             acesso.setMorador(moradorDao.findById(morador).orElseThrow(() -> new Exception("Morador desconhecido.")));
@@ -32,6 +33,12 @@ public class AcessoForm {
         }
         if (prestadorServico != null) {
             acesso.setPrestadorServico(prestadorDao.findById(prestadorServico).orElseThrow(() -> new Exception("Prestador de serviço desconhecido.")));
+        }
+        if (corretor != null) {
+            acesso.setCorretor(corretorDao.findById(corretor).orElseThrow(() -> new Exception("Corretor desconhecido.")));
+        }
+        if (entregador != null) {
+            acesso.setEntregador(entregadorDao.findById(entregador).orElseThrow(() -> new Exception("Entregador desconhecido.")));
         }
         return acesso;
     }

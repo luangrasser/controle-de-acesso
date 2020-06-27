@@ -29,6 +29,10 @@ public class Acesso implements Serializable {
     private Visitante visitante;
     @ManyToOne
     private PrestadorServico prestadorServico;
+    @ManyToOne
+    private Corretor corretor;
+    @ManyToOne
+    private Entregador entregador;
     private String movimento;
     @Builder.Default
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")

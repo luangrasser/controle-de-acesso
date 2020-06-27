@@ -1,9 +1,6 @@
 package br.com.gl.controledeacesso.controller;
 
-import br.com.gl.controledeacesso.dao.AcessoRepository;
-import br.com.gl.controledeacesso.dao.MoradorRepository;
-import br.com.gl.controledeacesso.dao.PrestadorServicoRepository;
-import br.com.gl.controledeacesso.dao.VisitanteRepository;
+import br.com.gl.controledeacesso.dao.*;
 import br.com.gl.controledeacesso.form.AcessoForm;
 import br.com.gl.controledeacesso.model.Acesso;
 import lombok.extern.log4j.Log4j2;
@@ -24,11 +21,15 @@ public class AcessoController {
     private VisitanteRepository visitanteRepository;
     @Autowired
     private PrestadorServicoRepository prestadorRepository;
+    @Autowired
+    private CorretorRepository corretorRepository;
+    @Autowired
+    private EntregadorRepository entregadorRepository;
 
     @PostMapping("/salvar")
     public ResponseEntity<?> salvar(@RequestBody AcessoForm form) {
         try {
-            Acesso acesso = form.transform(moradorRepository, visitanteRepository, prestadorRepository);
+            Acesso acesso = form.transform(moradorRepository, visitanteRepository, prestadorRepository, corretorRepository, entregadorRepository);
             return ResponseEntity.ok(repository.save(acesso));
         } catch (Exception e) {
             log.error("Falha ao salvar acesso.", e);
