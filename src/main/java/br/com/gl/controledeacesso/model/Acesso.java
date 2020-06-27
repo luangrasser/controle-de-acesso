@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,8 +21,11 @@ public class Acesso implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
+    @ManyToOne
     private Morador morador;
+    @ManyToOne
     private Visitante visitante;
+    @ManyToOne
     private PrestadorServico prestadorServico;
     private String movimento;
     @Builder.Default
