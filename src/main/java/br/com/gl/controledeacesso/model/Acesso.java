@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Acesso implements Serializable {
 
     private static final long serialVersionUID = 1L;
